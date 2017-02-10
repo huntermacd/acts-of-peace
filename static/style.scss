@@ -1,0 +1,122 @@
+$purple: #7921b7;
+$blue: #26c6da;
+$gray: #dedede;
+
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+
+  p:first-of-type {
+    text-align: center;
+    margin: 0;
+  }
+}
+
+header img {
+  max-width: 320px;
+  box-sizing: border-box;
+  padding: 10px;
+  display: block;
+  margin: 0 auto;
+}
+
+h2 {
+  color: #fff;
+  margin-top: 0;
+  text-align: center;
+  padding: 10px;
+}
+
+.submit-header {
+  background-color: $purple;
+}
+
+form {
+  padding: 10px;
+  margin-bottom: 0;
+  text-align: center;
+
+  input,
+  textarea,
+  select {
+    border: 1px solid $purple;
+    width: 100%;
+    max-width: 414px;
+    border-radius: 5px;
+  }
+
+  input {
+    height: 27px;
+  }
+
+  select {
+    padding: 5px 5px 5px 0;
+    background: none;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  div {
+    margin: 5px 0 20px 0;
+  }
+}
+
+input[type=submit] {
+  background-color: $purple;
+  color: #fff;
+  font-weight: bold;
+  height: 40px;
+  border: none;
+
+  &.remove-btn {
+    position: absolute;
+    width: 20px;
+    right: 10px;
+    height: 20px;
+    border-radius: 50%;
+    padding: 5px;
+    line-height: 2px;
+    top: 10px;
+  }
+}
+
+.submitted-header {
+  background-color: $blue;
+  margin-bottom: 0;
+}
+
+.act {
+  border-bottom: 2px solid $purple;
+  text-align: center;
+  padding: 10px;
+  position: relative;
+
+  &:last-of-type {
+    border: none;
+  }
+
+  &:nth-of-type(odd) {
+    background-color: $gray;
+  }
+
+  h3 {
+    margin-top: 0;
+    padding-top: 10px;
+  }
+
+  p:last-of-type {
+    margin-bottom: 0;
+    padding-bottom: 10px;
+  }
+}
+
+footer {
+  background-color: $blue;
+  color: #fff;
+  text-align: center;
+  padding: 15px;
+}
