@@ -9,9 +9,11 @@ body p:first-of-type {
 }
 
 header img {
-  max-width: 100%;
+  max-width: 320px;
   box-sizing: border-box;
   padding: 10px;
+  display: block;
+  margin: 0 auto;
 }
 
 h2 {
@@ -28,30 +30,31 @@ h2 {
 form {
   padding: 10px;
   margin-bottom: 0;
+  text-align: center;
 }
 
 form input,
 form textarea,
 form select {
   border: 1px solid #7921b7;
-  max-width: 100%;
+  width: 100%;
+  max-width: 414px;
   border-radius: 5px;
 }
 
 form input {
   height: 27px;
-  width: 100%;
 }
 
 form select {
   padding: 5px 5px 5px 0;
   background: none;
-  width: 100%;
 }
 
 form label {
   display: block;
   margin-bottom: 5px;
+  font-weight: bold;
 }
 
 form div {
