@@ -15,6 +15,7 @@ type ActOfPeace struct {
 }
 
 func init() {
+    http.Handle("/static/", http.FileServer(http.Dir(".")))
     http.HandleFunc("/", root)
     http.HandleFunc("/submit", submit)
 }
@@ -39,17 +40,17 @@ func root(w http.ResponseWriter, r *http.Request) {
 var actsOfPeaceTemplate = template.Must(template.New("listOfActs").Parse(`
 <html>
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit Acts of Peace</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
   </head>
   <body>
-    <h1>Submitted Acts of Peace:</h1>
-    {{range .}}
-      {{with .Title}}
-        <h2>{{.}}</h2>
-      {{end}}
-      <p>{{.Description}}</p>
-      <p><i>{{.FocusArea}}</i></p>
-    {{end}}
+    <header>
+      <img src="/static/logo.png" alt="Billion Acts logo.">
+    </header>
+    <h2 class="submit-header">Share Your Act of Peace</h2>
+    <p>Fill out the form below to tell us how you're helping to change the world.</p>
     <form action="/submit" method="post">
       <div>
         <label for="title">Title</label>
@@ -78,6 +79,16 @@ var actsOfPeaceTemplate = template.Must(template.New("listOfActs").Parse(`
         <input type="submit" value="Submit Act of Peace">
       </div>
     </form>
+    <h2 class="submitted-header">See What Others Are Doing</h2>
+    {{range .}}
+      <div class="act">
+        {{with .Title}}
+          <h3>{{.}}</h3>
+        {{end}}
+        <p>{{.Description}}</p>
+        <p><i>{{.FocusArea}}</i></p>
+      </div>
+    {{end}}
   </body>
 </html>
 `))
