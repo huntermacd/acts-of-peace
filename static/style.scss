@@ -63,6 +63,22 @@ form {
   div {
     margin: 5px 0 20px 0;
   }
+
+  span {
+    &::after {
+      content: '\00d7';
+      position: absolute;
+      right: 15px;
+      z-index: 5;
+      top: 11px;
+      color: #fff;
+      font-size: 18px;
+    }
+
+    &:hover::after {
+      content: 'Remove?';
+    }
+  }
 }
 
 input[type=submit] {
@@ -74,13 +90,19 @@ input[type=submit] {
 
   &.remove-btn {
     position: absolute;
-    width: 20px;
+    width: 21px;
     right: 10px;
-    height: 20px;
+    height: 21px;
     border-radius: 50%;
     padding: 5px;
     line-height: 2px;
     top: 10px;
+    transition: width 1s, border-radius 1s;
+
+    &:hover {
+      width: 100px;
+      border-radius: 15px;
+    }
   }
 }
 

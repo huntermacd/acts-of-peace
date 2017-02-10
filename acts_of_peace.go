@@ -91,7 +91,8 @@ var actsOfPeaceTemplate = template.Must(template.New("listOfActs").Parse(`
         <div class="act">
           <form action="/remove" method="post">
             <input type="hidden" name="id" value="{{.Id}}">
-            <input class="remove-btn" type="submit" value="X">
+            <span data-remove="Remove?"></span>
+            <input class="remove-btn" type="submit" value="">
           </form>
           {{with .Title}}
             <h3>{{.}}</h3>
