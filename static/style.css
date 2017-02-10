@@ -69,6 +69,17 @@ input[type=submit] {
   border: none;
 }
 
+input[type=submit].remove-btn {
+  position: absolute;
+  width: 20px;
+  right: 10px;
+  height: 20px;
+  border-radius: 50%;
+  padding: 5px;
+  line-height: 2px;
+  top: 10px;
+}
+
 .submitted-header {
   background-color: #26c6da;
   margin-bottom: 0;
@@ -78,6 +89,7 @@ input[type=submit] {
   border-bottom: 2px solid #7921b7;
   text-align: center;
   padding: 10px;
+  position: relative;
 }
 
 .act:last-of-type {

@@ -3,6 +3,7 @@ package actsOfPeace
 import (
     "html/template"
     "net/http"
+    "strconv"
 
     "appengine"
     "appengine/datastore"
@@ -12,12 +13,14 @@ type ActOfPeace struct {
         Title string
         Description string
         FocusArea string
+        Id int64 `datastore:"-"`
 }
 
 func init() {
     http.Handle("/static/", http.FileServer(http.Dir(".")))
     http.HandleFunc("/", root)
     http.HandleFunc("/submit", submit)
+    http.HandleFunc("/remove", remove)
 }
 
 func actsOfPeaceKey(c appengine.Context) *datastore.Key {
@@ -28,9 +31,13 @@ func root(w http.ResponseWriter, r *http.Request) {
         c := appengine.NewContext(r)
         q := datastore.NewQuery("ActOfPeace").Ancestor(actsOfPeaceKey(c))
         acts := make([]ActOfPeace, 0)
-        if _, err := q.GetAll(c, &acts); err != nil {
+        keys, err := q.GetAll(c, &acts)
+        if err != nil {
                 http.Error(w, err.Error(), http.StatusInternalServerError)
                 return
+        }
+        for i, key := range keys {
+                acts[i].Id = key.IntID()
         }
         if err := actsOfPeaceTemplate.Execute(w, acts); err != nil {
                 http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -80,15 +87,23 @@ var actsOfPeaceTemplate = template.Must(template.New("listOfActs").Parse(`
       </div>
     </form>
     <h2 class="submitted-header">See What Others Are Doing</h2>
-    {{range .}}
-      <div class="act">
-        {{with .Title}}
-          <h3>{{.}}</h3>
-        {{end}}
-        <p>{{.Description}}</p>
-        <p><i>{{.FocusArea}}</i></p>
-      </div>
-    {{end}}
+      {{range .}}
+        <div class="act">
+          <form action="/remove" method="post">
+            <input type="hidden" name="id" value="{{.Id}}">
+            <input class="remove-btn" type="submit" value="X">
+          </form>
+          {{with .Title}}
+            <h3>{{.}}</h3>
+          {{end}}
+          <p>{{.Description}}</p>
+          <p><i>{{.FocusArea}}</i></p>
+        </div>
+      {{else}}
+        <div class="act">
+          <h3>No acts submitted. Use the form above to add yours now!</h3>
+        </div>
+      {{end}}
     <footer>
       PeaceJam <span class="year"></span>
     </footer>
@@ -109,6 +124,18 @@ func submit(w http.ResponseWriter, r *http.Request) {
         }
         key := datastore.NewIncompleteKey(c, "ActOfPeace", actsOfPeaceKey(c))
         _, err := datastore.Put(c, key, &a)
+        if err != nil {
+                http.Error(w, err.Error(), http.StatusInternalServerError)
+                return
+        }
+        http.Redirect(w, r, "/", http.StatusFound)
+}
+
+func remove(w http.ResponseWriter, r *http.Request) {
+        c := appengine.NewContext(r)
+        id, _ := strconv.ParseInt(r.FormValue("id"), 10, 64)
+        key := datastore.NewKey(c, "ActOfPeace", "", id, actsOfPeaceKey(c))
+        err := datastore.Delete(c, key)
         if err != nil {
                 http.Error(w, err.Error(), http.StatusInternalServerError)
                 return
