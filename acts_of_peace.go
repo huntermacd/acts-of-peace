@@ -50,7 +50,7 @@ var actsOfPeaceTemplate = template.Must(template.New("listOfActs").Parse(`
       <img src="/static/logo.png" alt="Billion Acts logo.">
     </header>
     <h2 class="submit-header">Share Your Act of Peace</h2>
-    <p>Fill out the form below to tell us how you're helping to change the world.</p>
+    <p>Fill out the form below telling us how you're helping to change the world.</p>
     <form action="/submit" method="post">
       <div>
         <label for="title">Title</label>
@@ -89,6 +89,13 @@ var actsOfPeaceTemplate = template.Must(template.New("listOfActs").Parse(`
         <p><i>{{.FocusArea}}</i></p>
       </div>
     {{end}}
+    <footer>
+      PeaceJam <span class="year"></span>
+    </footer>
+    <script>
+      var d = new Date;
+      document.querySelector('.year').innerHTML = d.getFullYear();
+    </script>
   </body>
 </html>
 `))
