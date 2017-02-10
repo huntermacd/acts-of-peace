@@ -43,16 +43,6 @@ form {
     font-weight: bold; }
   form div {
     margin: 5px 0 20px 0; }
-  form span::after {
-    content: '\00d7';
-    position: absolute;
-    right: 15px;
-    z-index: 5;
-    top: 11px;
-    color: #fff;
-    font-size: 18px; }
-  form span:hover::after {
-    content: 'Remove?'; }
 
 input[type=submit] {
   background-color: #7921b7;
@@ -60,19 +50,29 @@ input[type=submit] {
   font-weight: bold;
   height: 40px;
   border: none; }
-  input[type=submit].remove-btn {
+
+.remove-btn {
+  position: absolute;
+  width: 21px;
+  right: 10px;
+  height: 21px;
+  border-radius: 15px;
+  line-height: 2px;
+  top: 10px;
+  transition: width 100ms;
+  border: none;
+  background-color: #7921b7; }
+  .remove-btn::after {
+    content: '\00d7';
     position: absolute;
-    width: 21px;
-    right: 10px;
-    height: 21px;
-    border-radius: 50%;
-    padding: 5px;
-    line-height: 2px;
-    top: 10px;
-    transition: width 1s, border-radius 1s; }
-    input[type=submit].remove-btn:hover {
-      width: 100px;
-      border-radius: 15px; }
+    right: 6px;
+    top: 9px;
+    color: #fff;
+    font-size: 14px; }
+  .remove-btn:hover {
+    width: 75px; }
+    .remove-btn:hover::after {
+      content: 'Remove?'; }
 
 .submitted-header {
   background-color: #26c6da;
