@@ -50,6 +50,7 @@ var actsOfPeaceTemplate = template.Must(template.New("listOfActs").Parse(`
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit Acts of Peace</title>
+    <link rel="shortcut icon" href="/static/favicon.ico">
     <link rel="stylesheet" type="text/css" href="/static/style.css">
   </head>
   <body>
